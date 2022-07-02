@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  server1:
+    container_name: server1
+    image: 'crappy-web-server:$VERSION'
+    restart: always
+    environment:
+      - CLIENT=0
+    ports:
+      - '3000:3000'
+
+  server2:
+    container_name: server2
+    image: 'crappy-web-server:$VERSION'
+    restart: always
+    environment:
+      - CLIENT=1
+    ports:
+      - '3001:3000'
+
+  server3:
+    container_name: server3
+    image: 'crappy-web-server:$VERSION'
+    restart: always
+    environment:
+      - CLIENT=2
+    ports:
+      - '3002:3000'
