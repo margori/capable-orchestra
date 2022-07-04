@@ -1,0 +1,12 @@
+replicas: 2
+versions:
+  crappyServer: 6
+  simulator: 5
+clients:
+  one:
+    id: 1
+  two:
+    id: 2
+  three:
+    id: 3
+    replicas: 3

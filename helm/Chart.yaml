@@ -1,0 +1,6 @@
+apiVersion: v2
+name: capable-orchestra
+description: Helm chart to deploy capable-orchestra to minikube
+type: application
+version: 0.1.0
+appVersion: "1.16.0"

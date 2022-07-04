@@ -1,0 +1,45 @@
+{{- range $key, $val := .Values.clients }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crappy-server-{{ $val.id }}
+  labels:
+    app: crappy-server-{{ $val.id }}
+spec:
+  replicas: {{$val.replicas | default $.Values.replicas}}
+  selector:
+    matchLabels:
+      app: crappy-server-{{ $val.id }}
+  template:
+    metadata:
+      labels:
+        app: crappy-server-{{ $val.id }}
+    spec:
+      containers:
+        - name: crappy-server-{{ $val.id }}
+          image: localhost:5000/crappy-server:{{$.Values.versions.crappyServer}}
+          ports:
+            - containerPort: 3000
+          env:
+            - name: CLIENT_ID
+              value: {{ $val.id | quote }}
+          startupProbe:
+            httpGet:
+              path: /
+              port: 3000
+            failureThreshold: 30
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: crappy-server-{{ $val.id }}
+spec:
+  selector:
+    app: crappy-server-{{ $val.id }}
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+---
+{{- end }}
