@@ -1,5 +1,7 @@
 FROM node:alpine
 
+RUN apk add curl
+
 WORKDIR /app
 
 COPY package.json /app
@@ -7,7 +9,7 @@ COPY package-lock.json /app
 
 RUN npm i
 
-COPY index.js /app
+COPY *.js /app/
 
 ARG VERSION
 ENV VERSION=${VERSION}
